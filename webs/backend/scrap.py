@@ -21,7 +21,9 @@ def scraps(url):
     sleep(15)
     sleep(20)
     lis_of_articles = (i for i in driver.find_elements_by_xpath('//*[@id="featured-story-marker"]/div/div[1]') )
-    print(lis_of_articles)
+    for i in lis_of_articles:
+        print(i)
+        print()
     driver.quit()
 
 scraps(url)
