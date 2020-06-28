@@ -5,7 +5,7 @@ from time import sleep
 url = "https://dev.to/"
 from decouple import config 
 username = config('username')
-pw =config('pw')
+pw =config('password')
 def scraps(url):
     print(url)
     driver = webdriver.Chrome(ChromeDriverManager().install())
@@ -19,11 +19,9 @@ def scraps(url):
     sleep(3)
     sign = driver.find_element_by_name("commit").click()
     sleep(15)
-    # login = driver.find_element_by_css_selector(".crayons-btn crayons-btn--l crayons-btn--brand-github crayons-btn--icon-left")
-    print(login)
     sleep(20)
-    links = driver.find_elements_by_xpath('//*[@id="featured-story-marker"]/div/div[1]')
-    print(links)
+    lis_of_articles = (i for i in driver.find_elements_by_xpath('//*[@id="featured-story-marker"]/div/div[1]') )
+    print(lis_of_articles)
     driver.quit()
 
 scraps(url)
