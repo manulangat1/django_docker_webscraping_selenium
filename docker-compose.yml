@@ -5,6 +5,8 @@ services:
         build: .
         volumes: 
             - .:/code 
+        networks: 
+            - nginx_network
     nginx:
         image: nginx:1.13
         ports: 
@@ -13,3 +15,10 @@ services:
             - ./config/nginx/conf.d:/etc/nginx/conf.d
         depends_on: 
             - djangoapp
+        networks: 
+            - nginx_network
+
+
+networks: 
+    nginx_network:
+        driver: bridge
