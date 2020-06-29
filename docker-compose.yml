@@ -14,6 +14,7 @@ services:
     celery_beat:
         build: .
         command: "cd ./code/webs && celery -A webs beat -l info"
+        # command:  ["cd","./code/webs","celery","-A", "webs", "beat", "--l info"]
         depends_on: 
             - djangoapp
         networks: 
