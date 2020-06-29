@@ -2,11 +2,12 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from time import sleep
 
-url = "https://dev.to/"
+
 from decouple import config 
 username = config('username')
 pw =config('password')
-def scraps(url):
+def scraps():
+    url = "https://dev.to/"
     print(url)
     driver = webdriver.Chrome(ChromeDriverManager().install())
     driver.get(url)
