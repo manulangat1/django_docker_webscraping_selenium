@@ -8,8 +8,16 @@ services:
         networks: 
             - nginx_network
             - database1_network 
+            - celery_network
         depends_on: 
             - database1
+    celery_beat:
+        build: .
+        command: "cd ./code/webs && celery -A webs beat -l info"
+        depends_on: 
+            - djangoapp
+        networks: 
+            - celery_network
     nginx:
         image: nginx:1.13
         ports: 
@@ -33,6 +41,8 @@ networks:
     nginx_network:
         driver: bridge
     database1_network:
+        driver: bridge
+    celery_network:
         driver: bridge
 
 volumes: 
