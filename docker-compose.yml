@@ -5,5 +5,11 @@ services:
         build: .
         volumes: 
             - .:/code 
+    nginx:
+        image: nginx:1.13
         ports: 
             - 8000:8000
+        volumes: 
+            - ./config/nginx/conf.d:/etc/nginx/conf.d
+        depends_on: 
+            - djangoapp
