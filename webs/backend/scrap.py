@@ -29,4 +29,4 @@ def scraps():
     sleep(3)
     driver.quit()
 
-scraps(url)
+scraps()
