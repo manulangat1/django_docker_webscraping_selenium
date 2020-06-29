@@ -7,6 +7,9 @@ services:
             - .:/code 
         networks: 
             - nginx_network
+            - database1_network 
+        depends_on: 
+            - database1
     nginx:
         image: nginx:1.13
         ports: 
@@ -17,8 +20,20 @@ services:
             - djangoapp
         networks: 
             - nginx_network
-
+    database1:
+        image: postgres:10
+        env_file: 
+            - config/db/database1_env
+        networks: 
+            - database1_network
+        volumes: 
+            - database1_volume:/var/lib/postgresql/data
 
 networks: 
     nginx_network:
         driver: bridge
+    database1_network:
+        driver: bridge
+
+volumes: 
+    database1_volume:
