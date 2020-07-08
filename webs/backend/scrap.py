@@ -19,11 +19,13 @@ def scraps(url):
     sleep(3)
     sign = driver.find_element_by_name("commit").click()
     sleep(15)
-    sleep(20)
-    lis_of_articles = (i for i in driver.find_elements_by_xpath('//*[@id="featured-story-marker"]/div/div[1]') )
+    # crayons-story__body
+    lis_of_articles = [i for i in driver.find_elements_by_xpath('//*[@id="false"]/div/div') ]
     for i in lis_of_articles:
         print(i)
         print()
+    print(len(lis_of_articles))
+    sleep(3)
     driver.quit()
 
 scraps(url)
