@@ -1,0 +1,50 @@
+version: '3'
+
+services: 
+    djangoapp:
+        build: .
+        volumes: 
+            - .:/code 
+        networks: 
+            - nginx_network
+            - database1_network 
+            - celery_network
+        depends_on: 
+            - database1
+    celery_beat:
+        build: .
+        command: "cd ./code/webs && celery -A webs beat -l info"
+        # command:  ["cd","./code/webs","celery","-A", "webs", "beat", "--l info"]
+        depends_on: 
+            - djangoapp
+        networks: 
+            - celery_network
+    nginx:
+        image: nginx:1.13
+        ports: 
+            - 8000:8000
+        volumes: 
+            - ./config/nginx/conf.d:/etc/nginx/conf.d
+        depends_on: 
+            - djangoapp
+        networks: 
+            - nginx_network
+    database1:
+        image: postgres:10
+        env_file: 
+            - config/db/database1_env
+        networks: 
+            - database1_network
+        volumes: 
+            - database1_volume:/var/lib/postgresql/data
+
+networks: 
+    nginx_network:
+        driver: bridge
+    database1_network:
+        driver: bridge
+    celery_network:
+        driver: bridge
+
+volumes: 
+    database1_volume:

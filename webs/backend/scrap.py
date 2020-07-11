@@ -2,17 +2,23 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from time import sleep
 
-url = "https://dev.to/"
+from selenium.webdriver.chrome.options import Options  
+
+
 from decouple import config 
 username = config('username')
 pw =config('password')
-def scraps(url):
+def scraps():
+    url = "https://dev.to/"
     print(url)
-    driver = webdriver.Chrome(ChromeDriverManager().install())
+    chrome_options = Options()  
+    chrome_options.headless = True
+    driver = webdriver.Chrome(ChromeDriverManager().install(),chrome_options=chrome_options)
     driver.get(url)
     sleep(2)
     login = driver.find_element_by_xpath("//section[1]/div/a[1]").click()
     sleep(17)
+    print(login)
     input1 = driver.find_element_by_xpath('//*[@id="login_field"]').send_keys(username)
     sleep(3)
     input2 = driver.find_element_by_xpath('//*[@id="password"]').send_keys(pw)
@@ -28,4 +34,4 @@ def scraps(url):
     sleep(3)
     driver.quit()
 
-scraps(url)
+scraps()
