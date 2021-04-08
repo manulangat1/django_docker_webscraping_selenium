@@ -10,7 +10,7 @@ chardet==3.0.4
 colorama==0.4.3
 configparser==5.0.0
 crayons==0.3.1
-Django==3.0.7
+Django==3.0.14
 django-rest-framework==0.1.0
 djangorestframework==3.11.0
 
